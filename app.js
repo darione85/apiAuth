@@ -5,6 +5,11 @@ var logger = require('morgan');
 var winston = require('winston');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+var config = require('./config/config.js')
+
+var db = mongoose.connect(config.database);
 
 winston.add(winston.transports.File, {filename: 'log/apps.log'});
 
@@ -25,12 +30,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// app.locals()
+
 app.use('/', index);
 app.use('/users', users);
-winston.log({
-    lever:"info",
-    message:"INIT ROUTES"
-});
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
