@@ -14,8 +14,10 @@ var db = mongoose.connect(config.database);
 
 winston.add(winston.transports.File, {filename: 'log/apps.log'});
 
-var index = require('./routes/index');
+
 var users = require('./routes/users');
+var index = require('./routes/index');
+
 
 var app = express();
 
@@ -34,6 +36,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.locals()
+
+app.use('/users',middleware.verifyToken);
+
 
 app.use('/', index);
 app.use('/users', users);
