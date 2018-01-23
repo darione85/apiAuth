@@ -8,6 +8,11 @@ var jwt = require('jsonwebtoken');
 var config = require('../config/config.js');
 
 
+// router.use(function (req, res, next) {
+//     console.log('Time:', Date.now());
+//     next();
+// });
+
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -152,8 +157,6 @@ router.get('/authenticate', function(req, res, next) {
 
     });
 });
-
-
 
 
 module.exports = router;
