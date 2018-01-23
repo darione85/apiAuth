@@ -1,7 +1,7 @@
 module.exports = {
     verifyToken: function(req, res, next) {
 
-        var config = require('../config/config.js');
+        var config = require('.././config/config.js');
 
         var jwt = require('jsonwebtoken');
 

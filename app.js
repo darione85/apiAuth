@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 
 var config = require('./config/config.js')
 
-var db = mongoose.connect(config.database);
+var db = mongoose.connect(config.database,{ useMongoClient: true });
 
 
 winston.add(winston.transports.File, {filename: 'log/apps.log'});
@@ -18,6 +18,8 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+var middleware = require('./middleware/middleware')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -56,5 +58,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.use(middleware.verifyToken)
 
 module.exports = app;

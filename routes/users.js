@@ -10,12 +10,12 @@ var config = require('../config/config.js');
 
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-    UserModel.find({},function (err, users) {
-        res.json(users);
-    })
-
-});
+// router.get('/', function(req, res, next) {
+//     UserModel.find({},function (err, users) {
+//         res.json(users);
+//     })
+//
+// });
 
 router.get('/login', function(req, res, next) {
 
@@ -26,47 +26,88 @@ router.get('/login', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-    req.body.email;
-    req.body.password;
-    console.log(res);
-    res.render('login', { title: 'Express' });
-});
+    var username = req.query.username || req.body.username || req.params.username
+    var email = req.query.email || req.body.email || req.params.email
+    var password = req.query.password || req.body.password || req.params.password
 
-router.get('/adduser/admin', function(req, res, next) {
-    // req.params.username;
-    // req.params.password;
+    // find the user
+    UserModel.findOne({
+        // username: username
+        email: email
+    }, function(err, user) {
 
-    var User = new UserModel({
-        name: 'admin',
-        username: 'admin',
-        password: 'admin4cima',
-        email:'dario.rubado@gmail.com',
-        token : 'xxxx',
-        admin: true,
-        location: 'ceriale',
-        meta: {
-            age: 31,
-            website: "www.karuweb.it"
-        },
-        created_at: new Date(),
-        updated_at: new Date()
+        if (err) throw err;
+
+        if (!user) {
+            res.json({ success: false, message: 'Authentication failed. User not found.' });
+        } else if (user) {
+
+            // check if password matches
+            if (user._doc.password != password) {
+                res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+            } else {
+
+                // if user is found and password is right
+                // create a token
+                var token = jwt.sign(user._doc, config.secret,{expiresIn: '500m'});
+
+                user.token = token
+
+                user.save(function(err) {
+                    if (err)
+                        console.log('error')
+                    else
+                        console.log('success')
+                });
+                // return the information including token as JSON
+                res.json({
+                    success: true,
+                    message: 'Enjoy your token!',
+                    // user:user,
+                    token: token
+                });
+            }
+
+        }
 
     });
-
-    User.save().then(function (err) {
-        if (err) throw err;
-        console.log('User saved successfully');
-        res.json({ success: true });
-    })
-    // User.save().then(() => console.log('meow'));
-
 });
+
+// router.get('/adduser/admin', function(req, res, next) {
+//     // req.params.username;
+//     // req.params.password;
+//
+//     var User = new UserModel({
+//         name: 'admin',
+//         username: 'admin',
+//         password: 'admin4cima',
+//         email:'dario.rubado@gmail.com',
+//         token : 'xxxx',
+//         admin: true,
+//         location: 'ceriale',
+//         meta: {
+//             age: 31,
+//             website: "www.karuweb.it"
+//         },
+//         created_at: new Date(),
+//         updated_at: new Date()
+//
+//     });
+//
+//     User.save().then(function (err) {
+//         if (err) throw err;
+//         console.log('User saved successfully');
+//         res.json({ success: true });
+//     })
+//     // User.save().then(() => console.log('meow'));
+//
+// });
 
 router.get('/logout', function(req, res, next) {
     res.send('respond with a resource');
 });
 
-router.get('/authenticate/:username/:password', function(req, res, next) {
+router.get('/authenticate', function(req, res, next) {
     var username = req.query.username || req.body.username || req.params.username
     var password = req.query.password || req.body.password || req.params.password
 
