@@ -16,6 +16,7 @@ var userSchema = new Schema({
     location: String,
     application: Schema.Types.Mixed,//oggetto
     role:Schema.Types.Mixed,//oggetto
+    group:[{ type: Schema.Types.ObjectId, ref: 'Group' }],
     meta: {
         age: Number,
         website: String
@@ -27,3 +28,19 @@ var userSchema = new Schema({
 
 // set up a mongoose model and pass it using module.exports
 module.exports = mongoose.model('User', userSchema);
+
+
+var groupSchema = new Schema({
+    name: String,
+    description: String,
+    admin: Boolean,
+    location: String,
+    application: Schema.Types.Mixed,//oggetto
+    role:Schema.Types.Mixed,//oggetto
+    $setOnInsert: {
+        created_at: new Date()
+    },
+    updated_at: new Date()
+});
+
+module.exports = mongoose.model('Group', groupSchema);

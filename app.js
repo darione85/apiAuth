@@ -16,6 +16,7 @@ winston.add(winston.transports.File, {filename: 'log/apps.log'});
 
 
 var users = require('./routes/users');
+var customers = require('./routes/customers');
 var index = require('./routes/index');
 
 
@@ -39,11 +40,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // app.locals()
 
-app.use('/users',middleware.verifyToken);
+//app.use('/users',middleware.verifyToken);
 
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/customers',customers);
 
 
 // catch 404 and forward to error handler

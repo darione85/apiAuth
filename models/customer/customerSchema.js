@@ -36,8 +36,10 @@ var customerSchema = new Schema({
         type: String,
         value: String
     }],
-    created_at: Date,
-    updated_at: Date
+    $setOnInsert: {
+        created_at: new Date()
+    },
+    updated_at: new Date()
 });
 
 
