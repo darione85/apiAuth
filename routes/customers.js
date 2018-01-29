@@ -7,7 +7,7 @@ var router = express.Router();
 var CustomersModel = require('./../models/customer/customerSchema');
 
 router.get('/', function(req, res, next) {
-    CustomersModel.find({});
+    // CustomersModel.find({});
 })
 
 router.get('/setupcustomer', function(req, res, next) {
@@ -61,7 +61,7 @@ router.get('/setupcustomer', function(req, res, next) {
         value:"meta2"
     }]
 
-    customer.created_at
+    // customer.created_at
 })
 
 module.exports = router;

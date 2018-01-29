@@ -18,8 +18,8 @@ var userSchema = new Schema({
     role:Schema.Types.Mixed,//oggetto
     group:[{ type: Schema.Types.ObjectId, ref: 'Group' }],
     meta: {
-        age: Number,
-        website: String
+        type: String,
+        value: String
     },
     created_at: Date,
     updated_at: Date
@@ -30,17 +30,15 @@ var userSchema = new Schema({
 module.exports = mongoose.model('User', userSchema);
 
 
-var groupSchema = new Schema({
-    name: String,
-    description: String,
-    admin: Boolean,
-    location: String,
-    application: Schema.Types.Mixed,//oggetto
-    role:Schema.Types.Mixed,//oggetto
-    $setOnInsert: {
-        created_at: new Date()
-    },
-    updated_at: new Date()
-});
-
-module.exports = mongoose.model('Group', groupSchema);
+// var groupSchema = new Schema({
+//     name: String,
+//     description: String,
+//     admin: Boolean,
+//     location: String,
+//     application: Schema.Types.Mixed,//oggetto
+//     role:Schema.Types.Mixed,//oggetto
+//     // $setOnInsert: {created_at: new Date()},
+//     updated_at: new Date()
+// });
+//
+// module.exports = mongoose.model('Group', groupSchema);

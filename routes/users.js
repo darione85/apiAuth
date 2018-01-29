@@ -27,7 +27,7 @@ router.get('/login', function(req, res, next) {
     // res.json({message:"user login"});
     // res.json(viewsPath+"/login.html")
     //  res.sendFile(req.app.get('views')+"/login_html.html")
-   res.render('login', { title: 'Express' });
+   res.render('loginb4', { title: 'Express' });
 });
 
 router.post('/login', function(req, res, next) {
@@ -65,12 +65,14 @@ router.post('/login', function(req, res, next) {
                         console.log('success')
                 });
                 // return the information including token as JSON
-                res.json({
-                    success: true,
-                    message: 'Enjoy your token!',
-                    // user:user,
-                    token: token
-                });
+
+                res.render('dashboard', { success:true,token: token });
+                // res.json({
+                //     success: true,
+                //     message: 'Enjoy your token!',
+                //     // user:user,
+                //     token: token
+                // });
             }
 
         }
@@ -112,13 +114,19 @@ router.get('/logout', function(req, res, next) {
     res.send('respond with a resource');
 });
 
+router.get('/dashboard', function(req, res, next) {
+    res.render('dashboard', { success:true,token: token });
+});
+
 router.get('/authenticate', function(req, res, next) {
     var username = req.query.username || req.body.username || req.params.username
+    var email = req.query.email || req.body.email || req.params.email
     var password = req.query.password || req.body.password || req.params.password
 
     // find the user
     UserModel.findOne({
-        username: username
+        // username: username
+        email: email
     }, function(err, user) {
 
         if (err) throw err;

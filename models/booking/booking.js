@@ -7,14 +7,18 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 // create a schema
-var customerSchema = new Schema({
+var bookingSchema = new Schema({
     title:String,
     name: String,
     surname: String,
+    description: String,
+    umbrella: String,
+    beach: String,
     piva:String,
     cf:String,
     skype:String,
-    birthDay: Date,
+    startDate: Date,
+    endDate: Date,
     note:String,
     address:[{
         type:String,
@@ -39,9 +43,10 @@ var customerSchema = new Schema({
     // $setOnInsert: {
     //     created_at: new Date()
     // },
+    user: Schema.Types.ObjectId,
     updated_at: Date
 });
 
 
 // set up a mongoose model and pass it using module.exports
-module.exports = mongoose.model('Customer', customerSchema);
+module.exports = mongoose.model('Booking', bookingSchema);
