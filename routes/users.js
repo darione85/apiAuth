@@ -115,7 +115,7 @@ router.get('/logout', function(req, res, next) {
 });
 
 router.get('/dashboard', function(req, res, next) {
-    res.render('dashboard', { success:true,token: token });
+    res.render('dashboardv2', { success:true,token: "pippo" });
 });
 
 router.get('/authenticate', function(req, res, next) {
