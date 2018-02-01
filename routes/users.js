@@ -115,7 +115,16 @@ router.get('/logout', function(req, res, next) {
 });
 
 router.get('/dashboard', function(req, res, next) {
-    res.render('dashboardv2', { success:true,token: "pippo" });
+
+    // find the user
+    UserModel.findOne({
+        username: 'admin'
+        // email: email
+    }, function(err, user) {
+        res.render('dashboardFull', { success:true,token: "pippo", user:user });
+    })
+
+
 });
 
 router.get('/authenticate', function(req, res, next) {
