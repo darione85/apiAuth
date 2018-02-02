@@ -121,7 +121,7 @@ router.get('/dashboard', function(req, res, next) {
         username: 'admin'
         // email: email
     }, function(err, user) {
-        res.render('dashboardFull', { success:true,token: "pippo", user:user });
+        res.sendfile('views/dashboardhtml.html', { success:true,token: "pippo", user:user });
     })
 
 
