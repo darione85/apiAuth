@@ -5,9 +5,16 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/bootstrapV4/dist/css/bootstrap.min.css')
     link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
-    script(type="javascript", href='/bootstrapV4/dist/js/bootstrap.js')
-    //link(rel='stylesheet' href='jsoneditor/dist/jsoneditor.min.css')
-    //script(type="javascript", href='jsoneditor/dist/jsoneditor.min.js')
+    link(rel='stylesheet' href='/javascripts/jsoneditor/jsoneditor.css')
 
   body
-    block content
+    block navbar
+  footer.footer
+    .container
+      span.text-muted Place sticky footer content here.
+
+  script(type="javascript", href='/bootstrapV4/assets/js/vendor/jquery-slim.min.js')
+  script(type="javascript", href='/bootstrapV4/assets/js/vendor/popper.min.js')
+  script(type="javascript", href='/bootstrapV4/assets/js/vendor/holder.min.js')
+  script(type="javascript", href='/bootstrapV4/dist/js/bootstrap.js')
+  script(type="javascript", href='/javascripts/jsoneditor/jsoneditor.js')
