@@ -22,10 +22,18 @@ var index = require('./routes/index');
 
 var app = express();
 
+app.all('/', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
+
 var middleware = require('./middleware/middleware')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+
+//mi converrea usare ejs
 app.set('view engine', 'jade');
 
 app.set('superSecret', config.secret);

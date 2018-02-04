@@ -27,7 +27,7 @@ router.get('/login', function(req, res, next) {
     // res.json({message:"user login"});
     // res.json(viewsPath+"/login.html")
     //  res.sendFile(req.app.get('views')+"/login_html.html")
-   res.render('loginb4', { title: 'Express' });
+   res.render('login/loginb4', { title: 'Express' });
 });
 
 router.post('/login', function(req, res, next) {
@@ -121,7 +121,8 @@ router.get('/dashboard', function(req, res, next) {
         username: 'admin'
         // email: email
     }, function(err, user) {
-        res.sendfile('views/dashboardhtml.html', { success:true,token: "pippo", user:user });
+        /// / res.sendfile('views/dashboardhtml.html', { success:true,token: "pippo", user:user });
+        res.render('dashboard/dashboardv2')
     })
 
 
@@ -151,7 +152,7 @@ router.get('/authenticate', function(req, res, next) {
 
                 // if user is found and password is right
                 // create a token
-                var token = jwt.sign(user._doc, config.secret,{expiresIn: '500m'});
+                var token = jwt.sign({username:user._doc.username}, config.secret,{expiresIn: '500m'});
 
                 user.token = token
 
