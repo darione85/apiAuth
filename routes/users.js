@@ -114,15 +114,34 @@ router.get('/logout', function(req, res, next) {
     res.send('respond with a resource');
 });
 
-router.get('/dashboard', function(req, res, next) {
-
+router.get('/dashboard/:username', function(req, res, next) {
+    var username = req.params.username
     // find the user
     UserModel.findOne({
-        username: 'admin'
+        username: username
         // email: email
     }, function(err, user) {
+
+        if(user){
+            if (user.hasOwnProperty('_doc')&& typeof user._doc ==="object"){
+                if (user._doc.admin){
+                    UserModel.find({},function (err,users) {
+                        res.render('dashboard/dashboardv2', {user:user._doc, users:users})
+                    })
+                }else{
+                    res.render('dashboard/dashboardv2', {user:user._doc})
+                }
+
+            }else{
+                res.render('error',{message:"No user found Error", error:{status:"200",stack:"error"}})
+            }
+        }else{
+            res.render('dashboard/error',{message:"No user found Error", error:{status:"200",stack:"error"}})
+        }
+
         /// / res.sendfile('views/dashboardhtml.html', { success:true,token: "pippo", user:user });
-        res.render('dashboard/dashboardv2')
+        // res.render('dashboard/dashboardv2')
+        // res.render('dashboard/dashboardFull')
     })
 
 

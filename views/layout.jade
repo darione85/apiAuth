@@ -1,20 +1,30 @@
 doctype html
 html
   head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    meta(name='description', content='')
+    meta(name='author', content='')
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/bootstrapV4/dist/css/bootstrap.min.css')
-    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
-    link(rel='stylesheet' href='/javascripts/jsoneditor/jsoneditor.css')
+    link(href='/stylesheets/style.css', rel='stylesheet')
+    link(href='/bootstrapV4/dist/css/bootstrap.min.css', rel='stylesheet')
+    link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css', rel='stylesheet')
+    link(href='/javascripts/jsoneditor/jsoneditor.css', rel='stylesheet')
+    link(href='/javascripts/select2/dist/css/select2.css', rel='stylesheet')
 
   body
-    block navbar
-  footer.footer
-    .container
-      span.text-muted Place sticky footer content here.
+      block error
+      block navbar
+    footer.footer
+      .container
+        span.text-muted Place sticky footer content here.
 
-  script(type="javascript", href='/bootstrapV4/assets/js/vendor/jquery-slim.min.js')
-  script(type="javascript", href='/bootstrapV4/assets/js/vendor/popper.min.js')
-  script(type="javascript", href='/bootstrapV4/assets/js/vendor/holder.min.js')
-  script(type="javascript", href='/bootstrapV4/dist/js/bootstrap.js')
-  script(type="javascript", href='/javascripts/jsoneditor/jsoneditor.js')
+  script(src='/bootstrapV4/assets/js/vendor/jquery-slim.min.js')
+  script(src='/bootstrapV4/assets/js/vendor/popper.min.js')
+  //script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js')
+  script.
+      window.jQuery || document.write('<script src="/bootstrapV4/assets/js/vendor/jquery-slim.min.js"><\\/script>')
+  script(src='/bootstrapV4/assets/js/vendor/holder.min.js')
+  script(src='/bootstrapV4/dist/js/bootstrap.bundle.js')
+  script(src='/javascripts/jsoneditor/jsoneditor.js')
+  script(src='/javascripts/select2/dist/js/select2.full.js')
